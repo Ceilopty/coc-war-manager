@@ -43,7 +43,9 @@ config = dict(wait=500,
               dir=os.path.split(sys.argv[0])[0],
               title=clanname+' 部落战记录管理 ' + Version,
               icon=os.path.join(os.path.split(sys.argv[0])[0],\
-                                'data', 'Clan.ico'),
+                                'data', 'Clan.ico') if \
+                                sys.platform.startswith('win32')\
+                                else None,
               write='utf-8', read='utf-8',
               maxnum=15, maxninsuu=50,
               boxnum=15,level_box=lambda i:str(8 - i*4 // 15))
@@ -65,16 +67,6 @@ options['filetypes'] = [('Ceilopty Donation files', '.cld'),
                         ('all files', '.*')]
 options['initialfile'] = os.path.join(config['dir'], 'save', 'data.cld')
 options['title'] = '选择历史贡献文件'
-
-'''
-self.dir_opt = options = {}
-options['initialdir'] = 'C:\\'
-options['mustexist'] = False
-options['parent'] = root
-options['title'] = u'选择目录'      
-def askdirectory(self):
-    return tkFileDialog.askdirectory(**dir_opt)
-'''
 
 # 帮助主题
 helptxt = """录入顺序：选择成员->输入时间等信息->确认等级->输入战斗信息
@@ -107,36 +99,4 @@ Enter/Ctrl+Z:添加/撤销
 如需更多快捷键，请联系CEILOPTY
 """
 
-
-
-
-# 附录
-"""
-# 人员词典 已被ini文件替代
-nameDict = {'hau': '-)Haulk(-',
-            'yrz': '万事屋',
-            'ava': 'avalon',
-            'cei': 'Ceilopty',
-            'cao': '艹日大雨',
-            'sun': 'Suner',
-            'bfy': 'Best For You',
-            'aos': 'Ao\'s Village',
-            '556': '5566',
-            'xy0': '~(小Y)~',
-            'jh0': '军魂',
-            'yuy': '鱼鱼是鱼鱼',
-            'mx0': '梦芯',
-            'abc': '爱比吸',
-            'ce2': 'セイロプティだよ',
-            'yon': '永遠愛雙',
-            'and': 'Andy',
-            'qk0': 'suim-e',
-            'jdd': '鸡蛋的家',
-            'shj': 'SHJ'}
-
-        for tag in nameDict:
-        clan[tag] = Member(nameDict[tag])
-        clan[tag].abbr = tag
-
-"""
  

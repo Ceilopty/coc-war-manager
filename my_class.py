@@ -1142,17 +1142,19 @@ class Member(metaclass=DescriptorOwnerMetaclass):
         self.donate[date] = score
 
     def jsondumps(self,**kw):
-        string = '[%s]\r\n'%self.abbr
+        div = '\r\n' if 0 else '\n'
+        string = '[%s]%s'%(self.abbr,div)
         for attr in['name', 'abbr', 'level', 'rank', 'order']:
-            string += '%s = %s\r\n'%(attr,self.__getattribute__(attr))
+            string += '%s = %s%s'%(attr,self.__getattribute__(attr),div)
         for attr in['hslv', 'donate','penalty']:
-            string += '%s = %s\r\n'%(attr,self.__getattribute__(attr).jsondumps(**kw))
-        string += '\r\n'
+            string += '%s = %s%s'%(attr,self.__getattribute__(attr).jsondumps(**kw),div)
+        string += div
         return string
 
     @staticmethod
     def jsonloads(string,**kw):
+        div = '\r\n' if 0 else '\n'
         clan = kw.pop('clan', _DEFAULT_CLAN)
-        L = [x.split(' = ')for x in string.split('\r\n') if ' = ' in x]
+        L = [x.split(' = ')for x in string.split(div) if ' = ' in x]
         return Member(clan, **dict(L))
 
