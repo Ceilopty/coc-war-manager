@@ -273,6 +273,8 @@ class Input:
         import traceback
         import my_io
         import tkinter
+        try: import tkinter.filedialog
+        except: pass
         import my_constant
         if all(self.FlagList):
             if tkinter.messagebox.askyesno('确认',\
