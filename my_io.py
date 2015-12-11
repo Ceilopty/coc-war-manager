@@ -168,5 +168,5 @@ def save_config(configs):
     with open(path,'w',encoding=config['write']) as f:
         for key, items in sorted(configs.items()):
             f.write('[' + key + ']\n')
-            for attr, value in items.items():
+            for attr, value in sorted(items.items()):
                 f.write(attr + ' = ' + str(value) + '\n')
