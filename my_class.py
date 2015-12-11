@@ -922,13 +922,12 @@ Clan(Clan) -> New Clan object (disables the old Clan)
         初始化给定部落，尝试从配置文件中读取部落。以后将尝试pickle甚至json方法。
         """
         from my_constant import config
-        import codecs
         import traceback
         import os
         iniFile = os.path.join(config['dir'],'data','member.ini')
         encoding = config['read']
         try:
-            with codecs.open(iniFile, 'r', encoding) as f:
+            with open(iniFile, 'r', encoding=encoding) as f:
                 string = f.read()  
             memList = list(filter(None, string.split('[')))
             for substring in memList:
@@ -936,7 +935,7 @@ Clan(Clan) -> New Clan object (disables the old Clan)
                 self[L[0]] = Member.jsonloads(L[1], clan=self)
         except FileNotFoundError:
             import pickle
-            with codecs.open(os.path.join(config['dir'],'data','member.ini'),encoding=config['read'], mode='w')as f:
+            with open(os.path.join(config['dir'],'data','member.ini'),encoding=config['read'], mode='w')as f:
                 with open(os.path.join(config['dir'],'data','member'),mode='rb')as ff:
                     string = pickle.load(ff)
                 f.write(string)

@@ -8,7 +8,6 @@ print('my_io.py imported:', __name__)
 
 # 读文件返回流
 def read_history(clan, path='history.clh') -> dict:
-    import codecs
     from my_constant import config
     from my_class import HistoryItem, DateKeyDict
     """
@@ -20,7 +19,7 @@ def read_history(clan, path='history.clh') -> dict:
     """
     his = DateKeyDict()
     try:
-        with codecs.open(path, mode='r', encoding=config['read']) as f:
+        with open(path, mode='r', encoding=config['read']) as f:
             temp_str = f.read()
         temp_list = temp_str.split('###')
         for string in temp_list:
@@ -33,7 +32,6 @@ def read_history(clan, path='history.clh') -> dict:
 
 
 def read_donate(clan, path='data.cld') -> dict:
-    import codecs
     from my_constant import config
     from my_class import DonateItem, DateKeyDict
     """
@@ -44,7 +42,7 @@ def read_donate(clan, path='data.cld') -> dict:
     """
     don = DateKeyDict()
     try:
-        with codecs.open(path, mode='r', encoding=config['read']) as f:
+        with open(path, mode='r', encoding=config['read']) as f:
             temp_str = f.read()
         temp_list = temp_str.split('###')
         for string in temp_list:
@@ -57,7 +55,6 @@ def read_donate(clan, path='data.cld') -> dict:
 
 # 由流写文件
 def append_history(item, path='history.clh', mode='a', check_exist=True):
-    import codecs
     from my_constant import config
     from my_coding import my_encode
     myclan = item.clan if item else None
@@ -71,7 +68,7 @@ def append_history(item, path='history.clh', mode='a', check_exist=True):
     :return: None
     """
     if mode == 'clear':
-        with codecs.open(path, mode='w', encoding=config['write']):
+        with open(path, mode='w', encoding=config['write']):
             pass
         return
     elif not item:
@@ -79,7 +76,7 @@ def append_history(item, path='history.clh', mode='a', check_exist=True):
     elif check_exist:
         if item.date in myclan.h:
             return
-    with codecs.open(path, mode=mode, encoding=config['write']) as f:
+    with open(path, mode=mode, encoding=config['write']) as f:
         f.write('###')
         f.write(item.date + '\n')
         f.write(item.name + '\n')
@@ -98,7 +95,6 @@ def append_history(item, path='history.clh', mode='a', check_exist=True):
 
 
 def append_donate(item, path='data.cpd', mode='a', check_exist=True):
-    import codecs
     from my_constant import config
     from my_coding import my_encode
     if item: myclan = item.clan
@@ -112,7 +108,7 @@ def append_donate(item, path='data.cpd', mode='a', check_exist=True):
     :return: None
     """
     if mode == 'clear':
-        with codecs.open(path, 'w', encoding=config['write']):
+        with open(path, 'w', encoding=config['write']):
             pass
         return
     elif not item:
@@ -120,7 +116,7 @@ def append_donate(item, path='data.cpd', mode='a', check_exist=True):
     elif check_exist:
         if item.date in myclan.d:
             return
-    with codecs.open(path, mode=mode, encoding=config['write']) as f:
+    with open(path, mode=mode, encoding=config['write']) as f:
         f.write('###')
         f.write(item.date + '\n')
         for i in item.donateList:
@@ -143,11 +139,10 @@ def append_donate(item, path='data.cpd', mode='a', check_exist=True):
 def read_config():
     import sys
     import os.path
-    import codecs
     from my_constant import config
     path = os.path.join(os.path.split(sys.argv[0])[0], 'data', 'config.ini')
     try:
-        with codecs.open(path,'r',encoding=config['read']) as f:
+        with open(path,'r',encoding=config['read']) as f:
             string = f.read()
             configs = {}
             temp = tuple(filter(None,string.split('[')))
@@ -168,15 +163,10 @@ def read_config():
 def save_config(configs):
     import sys
     import os.path
-    import codecs
     from my_constant import config
     path = os.path.join(os.path.split(sys.argv[0])[0], 'data', 'config.ini')
-    with codecs.open(path,'w',encoding=config['write']) as f:
-        for key, items in configs.items():
+    with open(path,'w',encoding=config['write']) as f:
+        for key, items in sorted(configs.items()):
             f.write('[' + key + ']\n')
             for attr, value in items.items():
                 f.write(attr + ' = ' + str(value) + '\n')
-                
-                    
-            
-
