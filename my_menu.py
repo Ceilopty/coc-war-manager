@@ -385,21 +385,19 @@ class MemMenu(Menu):
                 messagebox.showinfo('还未保存','请先保存后再备份')
                 return
             from my_constant import config
-            import codecs
             import os
             import pickle
-            with codecs.open(os.path.join(config['dir'],'data','member.ini'),encoding=config['read'], mode='r')as f:
+            with open(os.path.join(config['dir'],'data','member.ini'),encoding=config['read'], mode='r')as f:
                 with open(os.path.join(config['dir'],'data','member'),mode='wb')as ff:
                     pickle.dump(f.read(), ff)
             with open(os.path.join(config['dir'],'data','Clan'),mode='wb')as ff:
                 pickle.dump(self.clan, ff)
         def mem_save(self):
             import os
-            import codecs
             import traceback
             from my_constant import config
             try:
-                with codecs.open(os.path.join(config['dir'],'data','member.ini'), mode='w', encoding=config['read']) as f:
+                with open(os.path.join(config['dir'],'data','member.ini'), mode='w', encoding=config['read']) as f:
                     for member in sorted(self.clan,reverse=True):
                         f.write(member.jsondumps())
             except BaseException as e:
