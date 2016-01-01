@@ -171,7 +171,7 @@ class MainWindows(tkinter.Toplevel): # 主窗口
                     self.date = ContentsFrames(self, '结束日期： ', 'date')
                     self.date.entry.insert(0, '15.')
                     self.name = ContentsFrames(self, '部落名称： ', 'name')
-                    self.kuni = ContentsFrames(self, '对手国家： ', 'kuni')
+                    self.kuni = ContentsFrames(self, '对手所在地： ', 'kuni')
                 def creatButtons(self):
                     self.input.info_kakunin = self.kakunin = tkinter.Button(self, text='确认',
                                                                             command=self.input.info.kakunin)

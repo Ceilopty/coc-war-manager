@@ -644,8 +644,8 @@ class Penalty(_MemberDictDescrptor):
 # 部落及成员类
 class Clan(metaclass=DescriptorOwnerMetaclass):
     """Clan() -> default Clan object
-Clan(str/Mystr) -> New Clan with the given name.
-Clan(Clan) -> New Clan object (disables the old Clan)
+    Clan(str/Mystr) -> New Clan with the given name.
+    Clan(Clan) -> New Clan object (disables the old Clan)
 
     部落类。由成员及部落战记录构成。支持Key和Index（Slice及负数除外）。
     支持for in。
@@ -1116,7 +1116,10 @@ class Member(metaclass=DescriptorOwnerMetaclass):
 
     def __gt__(self, value): return not self.__le__(value)
     
-    def __lt__(self, value): return self.__rank<value.__rank
+    def __lt__(self, value):
+        if self.__rank: return self.__rank<value.__rank
+        elif value.__rank: return 1
+        else: return self.abbr > value.abbr
     
     def __ge__(self, value): return not self.__lt__(value)
 
