@@ -169,7 +169,7 @@ class MainWindows(tkinter.Toplevel): # 主窗口
                             self.entry.pack(brn)
                             self.pack(btn)
                     self.date = ContentsFrames(self, '结束日期： ', 'date')
-                    self.date.entry.insert(0, '15.')
+                    self.date.entry.insert(0, '16.')
                     self.name = ContentsFrames(self, '部落名称： ', 'name')
                     self.kuni = ContentsFrames(self, '对手所在地： ', 'kuni')
                 def creatButtons(self):

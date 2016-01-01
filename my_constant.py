@@ -48,7 +48,8 @@ config = dict(wait=500,
                                 else None,
               write='utf-8', read='utf-8',
               maxnum=15, maxninsuu=50,
-              boxnum=15,level_box=lambda i:str(8 - i*4 // 15))
+              boxnum=15,level_box=lambda i:str(9-i if 9>i else 1) # lambda i:str(9 - i*4 // 15)
+              )
 
 
 
